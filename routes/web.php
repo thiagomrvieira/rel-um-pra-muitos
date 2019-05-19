@@ -60,3 +60,12 @@ Route::get('/categorias-produtos', function () {
         }
     }    
 });
+
+Route::get('/categorias-produtos/json', function () {
+    //Lazy loading
+    //$cats = Categoria::all();
+
+    //Eagin loading
+    $cats = Categoria::with('produtos')->get();
+    return $cats->toJson();
+});
