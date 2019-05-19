@@ -39,3 +39,24 @@ Route::get('/produtos', function () {
         
     }    
 });
+
+
+Route::get('/categorias-produtos', function () {
+    $cat = Categoria::all();
+    if (count($cat)==0){
+        echo "<h4>Sem categorias cadastradas</h4>";
+    }else{ 
+        foreach ($cat as $c) {
+            echo "<p>" . $c->id . " - " .$c->nome . "</p>";
+            //$produtos = [];
+
+            if (count($c->produtos) > 0) {
+                echo "<ul>";
+                foreach ($c->produtos as $p){
+                    echo "<li>". $p->nome ."</li>";
+                }
+                echo "</ul>";        
+            }
+        }
+    }    
+});
