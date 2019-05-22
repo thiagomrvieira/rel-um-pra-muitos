@@ -96,3 +96,19 @@ Route::get('/removerproduto', function () {
    
 
 });
+
+
+Route::get('/adicionarproduto/{cat}', function ($catid) {
+   
+    $cat = Categoria::with('produtos')->find($catid);
+    $p = new Produto();
+    $p->nome = "Mais um produto";
+    $p->estoque = 12;
+    $p->preco = 30;
+    if (isset($cat)){
+        $cat->produtos()->save($p);
+    }
+    $cat->load('produtos'); // Atualiza os dados - Retorna com o novo produto adicionado
+    return $cat->toJson();
+
+});
